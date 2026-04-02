@@ -13,8 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSidebar('sidebarLibrary', true);
   renderSidebar('sidebarDetail', false);
   renderTopicsSidebar('sidebarTopics');
-  renderBookGrid('bookGridHomepage', BOOKS);
-  renderBookGrid('bookGridLibrary', BOOKS);
+  
+  let homeBooks = [...BOOKS];
+  homeBooks.sort(() => 0.5 - Math.random());
+  renderBookGrid('bookGridHomepage', homeBooks.slice(0, 12));
+  
+  filterBooksLibrary('all', null);
 });
 
 // ═══════════════════════════════════════════════════
@@ -188,18 +192,16 @@ function renderBookCard(book) {
     : '<i class="bi bi-book tag-icon"></i>';
 
   const vipTag = book.isVip
-    ? `<div class="book-vip-tag"><svg class="vip-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="#B87300"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">V</text></svg> HỘI VIÊN</div>`
+    ? `<div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên" /></div>`
     : '';
 
   return `
     <div class="col-6 col-sm-4 col-md-4 col-lg-auto" style="flex:0 0 20%;max-width:20%;">
       <div class="bb-book-card" onclick="openBookDetail(${book.id})">
-        <div class="book-cover-wrap" style="background:${book.coverColor};">
+        <div class="book-cover-wrap" style="${book.coverImage ? `background-image:url('${book.coverImage}');background-size:cover;background-position:center;` : `background:${book.coverColor};`}">
           <span class="book-type-tag ${typeClass}">${typeIcon} ${book.type}</span>
           ${vipTag}
-          <div class="d-flex align-items-center justify-content-center h-100" style="font-size:4rem;opacity:0.12;">
-            <i class="bi bi-book"></i>
-          </div>
+          ${book.coverImage ? '' : `<div class="d-flex align-items-center justify-content-center h-100" style="font-size:4rem;opacity:0.12;"><i class="bi bi-book"></i></div>`}
         </div>
         <div class="book-info">
           <div class="book-title">${book.title}</div>
@@ -295,19 +297,19 @@ function renderBookDetail(book) {
   // Cover
   const detailCover = document.getElementById('detailCover');
   detailCover.innerHTML = `
-    <div style="background:${book.coverColor};aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);position:relative;">
+    <div style="${book.coverImage ? `background-image:url('${book.coverImage}');background-size:cover;background-position:center;` : `background:${book.coverColor};`}aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);position:relative;">
       <span class="book-type-tag ${book.type === 'Audio' ? 'tag-audio' : 'tag-ebook'}">
         <i class="bi bi-${book.type === 'Audio' ? 'headphones' : 'book'} tag-icon"></i> ${book.type}
       </span>
-      ${book.isVip ? '<div class="book-vip-tag"><b>V</b> HỘI VIÊN</div>' : ''}
-      <i class="bi bi-book" style="font-size:5rem;opacity:0.15;"></i>
+      ${book.isVip ? '<div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên" /></div>' : ''}
+      ${book.coverImage ? '' : '<i class="bi bi-book" style="font-size:5rem;opacity:0.15;"></i>'}
     </div>`;
 
   // Thumbs
   const thumbs = document.getElementById('detailThumbs');
   let thumbsHtml = '';
   for (let i = 0; i < 5; i++) {
-    thumbsHtml += `<div style="width:56px;height:70px;background:${book.coverColor};border-radius:4px;border:2px solid ${i === 0 ? 'var(--c-brand)' : 'var(--c-border-light)'};cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="bi bi-image" style="opacity:0.2"></i></div>`;
+    thumbsHtml += `<div style="width:56px;height:70px;${book.coverImage ? `background-image:url('${book.coverImage}');background-size:cover;background-position:center;` : `background:${book.coverColor};`}border-radius:4px;border:2px solid ${i === 0 ? 'var(--c-brand)' : 'var(--c-border-light)'};cursor:pointer;display:flex;align-items:center;justify-content:center;">${book.coverImage ? '' : '<i class="bi bi-image" style="opacity:0.2"></i>'}</div>`;
   }
   thumbs.innerHTML = thumbsHtml;
 
@@ -482,20 +484,61 @@ function filterBooks(type, btn) {
   btn.classList.remove('btn-filter');
   btn.classList.add('btn-filter-active');
 
-  const filtered = type === 'all' ? BOOKS : BOOKS.filter(b => b.type === type);
-  renderBookGrid('bookGridHomepage', filtered);
+  let filtered = type === 'all' ? [...BOOKS] : BOOKS.filter(b => b.type === type);
+  filtered.sort(() => 0.5 - Math.random());
+  renderBookGrid('bookGridHomepage', filtered.slice(0, 12));
 }
 
-function filterBooksLibrary(type, btn) {
-  btn.closest('.bb-filter-tabs').querySelectorAll('.btn').forEach(b => {
-    b.classList.remove('btn-filter-active');
-    b.classList.add('btn-filter');
-  });
-  btn.classList.remove('btn-filter');
-  btn.classList.add('btn-filter-active');
+let currentLibraryBooks = [];
+let currentPage = 1;
+const itemsPerPage = 30;
 
-  const filtered = type === 'all' ? BOOKS : BOOKS.filter(b => b.type === type);
-  renderBookGrid('bookGridLibrary', filtered);
+function filterBooksLibrary(type, btn) {
+  if (btn) {
+    btn.closest('.bb-filter-tabs').querySelectorAll('.btn').forEach(b => {
+      b.classList.remove('btn-filter-active');
+      b.classList.add('btn-filter');
+    });
+    btn.classList.remove('btn-filter');
+    btn.classList.add('btn-filter-active');
+  }
+
+  currentLibraryBooks = type === 'all' ? [...BOOKS] : BOOKS.filter(b => b.type === type);
+  currentLibraryBooks.sort(() => 0.5 - Math.random());
+
+  const countEl = document.getElementById('libraryBookCount');
+  if (countEl) countEl.textContent = currentLibraryBooks.length;
+
+  renderLibraryPage(1);
+}
+
+function renderLibraryPage(page) {
+  currentPage = page;
+  const start = (page - 1) * itemsPerPage;
+  const paginated = currentLibraryBooks.slice(start, start + itemsPerPage);
+  renderBookGrid('bookGridLibrary', paginated);
+  renderPagination();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(currentLibraryBooks.length / itemsPerPage);
+  const paginationContainer = document.querySelector('.bb-pagination');
+  if (!paginationContainer) return;
+  
+  if (totalPages <= 1) {
+    paginationContainer.innerHTML = '';
+    return;
+  }
+
+  let html = `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="event.preventDefault(); if(${currentPage} > 1) renderLibraryPage(${currentPage - 1})"><i class="bi bi-chevron-left"></i></a></li>`;
+  
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="event.preventDefault(); renderLibraryPage(${i})">${i}</a></li>`;
+  }
+
+  html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="event.preventDefault(); if(${currentPage} < ${totalPages}) renderLibraryPage(${currentPage + 1})"><i class="bi bi-chevron-right"></i></a></li>`;
+  
+  paginationContainer.innerHTML = html;
 }
 
 
