@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BenBooks – Chi tiết sách</title>
+  <meta name="description" content="Xem chi tiết sách trên BenBooks – Nền tảng đọc sách bản quyền dành cho hội viên VIP.">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Roboto:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- BenBooks CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="book-detail">
+
+  <!-- HEADER -->
+  <div id="app-header"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="container-fluid bb-container py-4">
+
+    <!-- Breadcrumb -->
+    <nav class="bb-breadcrumb" aria-label="breadcrumb">
+      <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item"><a href="homepage.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="homepage.html">Ebook</a></li>
+        <li class="breadcrumb-item active" id="breadcrumbTitle">Chi tiết sách</li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- MAIN (Left) -->
+      <div class="col-lg-9 col-md-8">
+
+        <!-- Hero: Cover + Info -->
+        <div class="book-detail-hero">
+          <div class="row g-4">
+            <!-- Cover -->
+            <div class="col-md-4">
+              <div class="book-detail-cover" id="detailCover">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="book-detail-thumbs" id="detailThumbs">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+            <!-- Info -->
+            <div class="col-md-8">
+              <div class="book-detail-info" id="detailInfo">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Author section -->
+        <div class="bg-card p-3 rounded mb-3 border" id="authorSection">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Publishing Info -->
+        <div class="publishing-info" id="publishingInfo">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Content Tabs -->
+        <div class="content-tabs bg-card p-3 rounded border mb-3">
+          <ul class="nav nav-tabs" id="contentTabNav" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tabIntro">GIỚI THIỆU</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tabToc">Mục lục</a></li>
+          </ul>
+          <div class="tab-content pt-3">
+            <div class="tab-pane fade show active" id="tabIntro">
+              <div id="detailDescription" class="text-body-16-r" style="max-height:200px;overflow:hidden;position:relative;">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="text-center mt-2">
+                <a href="#" class="see-more-link" onclick="toggleDescription(event)"><i class="bi bi-chevron-down"></i> Xem thêm ▼</a>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabToc">
+              <ul class="list-group list-group-flush" id="detailToc">
+                <!-- Rendered by JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="comments-section" id="commentsSection">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="section-title mb-0">BÌNH LUẬN</div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-tini-12">1 bình luận</span>
+              <span class="text-hidden text-tini-12">|</span>
+              <span class="text-tini-12 text-hidden">Mới nhất <i class="bi bi-chevron-down"></i></span>
+            </div>
+          </div>
+          <!-- Comment Form -->
+          <div class="comment-form mb-3">
+            <textarea class="form-control" rows="3" placeholder="Mời bạn thảo luận, vui lòng nhập nội dung bình luận..."></textarea>
+            <div class="text-end mt-2">
+              <button class="btn btn-brand btn-sm px-4">Gửi bình luận</button>
+            </div>
+          </div>
+          <!-- Comments List -->
+          <div id="commentsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Related books -->
+        <div class="related-books-section">
+          <div class="section-title">SÁCH CÙNG CHỦ ĐỀ</div>
+          <div class="row g-3" id="relatedBooksGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Suggested books -->
+        <div class="related-books-section">
+          <div class="section-title">GỢI Ý CHO BẠN</div>
+          <div class="row g-3" id="suggestedBooksGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR (Right) -->
+      <div class="col-lg-3 col-md-4">
+        <!-- VIP Info Box -->
+        <div class="vip-info-box" id="vipInfoBox">
+          <!-- Rendered by JS -->
+        </div>
+        <!-- Category sidebar -->
+        <div class="bb-sidebar mb-3" id="sidebarDetail">
+          <!-- Rendered by JS -->
+        </div>
+        <!-- Topics -->
+        <div class="bb-sidebar" id="sidebarTopics">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="app-footer"></div>
+
+  <!-- Zalo float -->
+  <div class="zalo-float" title="Chat Zalo">Zalo</div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

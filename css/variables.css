@@ -5,6 +5,12 @@
 
 /* ── 1. COLOR PALETTE ── */
 :root {
+  /* Fonts */
+  --f-body:     'Roboto', sans-serif;
+  --f-heading:  'Playfair Display', serif;
+  --c-text:     #2D2D2D;
+  --c-bg-paper: #F5ECD7;
+
   /* Brand */
   --c-brand:            #B87300;
   --c-brand-hover:      #9A6200;
