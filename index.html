@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BenBooks – Trang Đọc Sách VIP Cá Nhân</title>
+  <meta name="description" content="Nền tảng đọc sách bản quyền dành cho hội viên VIP. Khám phá hàng nghìn đầu sách Ebook và Audiobook chất lượng cao." />
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Roboto + Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Roboto:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- BenBooks CSS -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 1: SMS MOCKUP
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-sms" class="screen active">
+  <div class="d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="iphone-mockup">
+      <div class="iphone-notch"></div>
+      <div class="iphone-screen">
+        <!-- Status bar -->
+        <div class="iphone-statusbar">
+          <span>09:21</span>
+          <span>
+            <i class="bi bi-reception-4"></i>
+            <i class="bi bi-wifi"></i>
+            <i class="bi bi-battery-full"></i>
+          </span>
+        </div>
+        <!-- Back + Contact -->
+        <div class="px-3 pb-2 d-flex align-items-center gap-2">
+          <span style="color:#4A90D9; font-size:20px;"><i class="bi bi-chevron-left"></i></span>
+          <span class="badge bg-primary rounded-pill" style="font-size:11px;">67</span>
+        </div>
+        <!-- SMS Header -->
+        <div class="iphone-sms-header">
+          <div class="sms-avatar"><i class="bi bi-person-fill"></i></div>
+          <div class="sms-sender">Vega <i class="bi bi-chevron-right" style="font-size:10px;color:#888"></i></div>
+          <div class="sms-meta">Tin nhắn văn bản - SMS<br/>18:03 Th 5, 19 thg 3</div>
+        </div>
+        <!-- SMS Bubble -->
+        <div class="sms-bubble">
+          Bạn đã đăng ký thành công gói VIP90. Để đọc sách vui lòng đăng nhập vào hệ thống
+          <a href="#" id="smsLink" onclick="goToHomepage(event)">benbooks.sachbanquyen.com.vn</a>
+          và nhập mã kích hoạt
+          <span class="sms-code">982932</span>
+          để xác thực tài khoản BenbooksID
+        </div>
+        <!-- Home bar -->
+        <div style="flex:1"></div>
+        <div class="iphone-home-bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 2: HOMEPAGE (also reused for step 4)
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-homepage" class="screen">
+
+  <!-- HEADER -->
+  <header class="bb-header">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <!-- Logo -->
+        <div class="col-auto">
+          <a href="#" class="header-logo d-flex align-items-center text-decoration-none">
+            <span class="header-logo-text"><span class="logo-icon"><i class="bi bi-book-half"></i></span> Ben Books</span>
+          </a>
+        </div>
+        <!-- Search -->
+        <div class="col">
+          <div class="header-search input-group">
+            <input type="text" class="form-control" placeholder="Nhập từ khoá tìm kiếm" id="searchInput" />
+            <button class="btn btn-search" type="button"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+        <!-- Hotline -->
+        <div class="col-auto d-none d-lg-block">
+          <div class="header-hotline d-flex align-items-center gap-2">
+            <i class="bi bi-telephone-fill text-brand"></i>
+            <div>
+              <div class="hotline-label">Hotline:</div>
+              <div class="hotline-number">0382832993</div>
+            </div>
+          </div>
+        </div>
+        <!-- Gói Cước -->
+        <div class="col-auto">
+          <button class="btn btn-goi-cuoc"><i class="bi bi-gift-fill me-1"></i> Gói Cước</button>
+        </div>
+        <!-- Tài khoản -->
+        <div class="col-auto">
+          <a href="#" class="btn-tai-khoan" id="headerAccount">
+            <i class="bi bi-person-circle me-1"></i> Tài khoản
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY: Sidebar + Main -->
+  <div class="container py-4">
+    <div class="row">
+
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-4">
+        <div class="bb-sidebar mb-3" id="sidebarHomepage">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9 col-md-8">
+        <!-- Banner -->
+        <div class="bb-banner-placeholder">
+          <h2>Chào mừng đến với tủ sách<br/>Benbooks dành cho hội viên</h2>
+        </div>
+
+        <!-- Section Title + Filters -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+          <h5 class="text-h5-18-b mb-0">TẤT CẢ SÁCH (<span id="bookCount">5213</span>)</h5>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="bb-filter-bar">
+          <div class="bb-filter-tabs">
+            <button class="btn btn-filter-active btn-sm" onclick="filterBooks('all', this)"><i class="bi bi-grid-3x3-gap me-1"></i> Tất cả</button>
+            <button class="btn btn-filter btn-sm" onclick="filterBooks('Ebook', this)"><i class="bi bi-book me-1"></i> Ebook</button>
+            <button class="btn btn-filter btn-sm" onclick="filterBooks('Audio', this)"><i class="bi bi-headphones me-1"></i> Audio</button>
+          </div>
+          <div class="bb-sort-bar d-none d-md-flex align-items-center gap-1">
+            <span class="text-hidden">Sắp xếp theo:</span>
+            <a href="#" class="active">Bán chạy</a>
+            <a href="#">Phổ biến</a>
+            <a href="#">Mới nhất</a>
+            <a href="#">Theo giá</a>
+          </div>
+        </div>
+
+        <!-- Book Grid -->
+        <div class="row g-3" id="bookGridHomepage">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 3: LOGIN
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-login" class="screen">
+
+  <!-- HEADER (with phone display) -->
+  <header class="bb-header">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-auto">
+          <a href="#" class="header-logo d-flex align-items-center text-decoration-none">
+            <span class="header-logo-text"><span class="logo-icon"><i class="bi bi-book-half"></i></span> Ben Books</span>
+          </a>
+        </div>
+        <div class="col">
+          <div class="header-search input-group">
+            <input type="text" class="form-control" placeholder="Nhập từ khoá tìm kiếm" />
+            <button class="btn btn-search" type="button"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <div class="header-hotline d-flex align-items-center gap-2">
+            <i class="bi bi-telephone-fill text-brand"></i>
+            <div>
+              <div class="hotline-label">Hotline:</div>
+              <div class="hotline-number">0382832993</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-goi-cuoc"><i class="bi bi-gift-fill me-1"></i> Gói Cước</button>
+        </div>
+        <div class="col-auto">
+          <span class="header-phone-display"><i class="bi bi-person-circle me-1"></i> +84944640034</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOGIN FORM -->
+  <div class="login-section">
+    <div class="login-card">
+      <h4>Đăng nhập hệ thống</h4>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+          <input type="text" class="form-control" id="loginPhone" value="+84944640034" readonly />
+        </div>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+          <input type="text" class="form-control" id="loginCode" placeholder="Nhập mã xác thực từ SMS" />
+          <span class="input-group-text" style="cursor:pointer;"><i class="bi bi-clipboard"></i></span>
+        </div>
+        <button type="submit" class="btn btn-brand btn-login" id="btnLogin">ĐĂNG NHẬP</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bb-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <h6>Công ty cổ phần Văn hoá và Bản quyền Benito</h6>
+          <p>(Hoạt động từ 8h - 17h, Thứ 2 - Thứ 7)</p>
+          <p><i class="bi bi-geo-alt me-1"></i> 28D2 Khu giãn dân Yên Phúc, Hà Đông, Hà Nội</p>
+          <p><i class="bi bi-telephone me-1"></i> Hotline: <strong>0888 080 290</strong></p>
+          <p><i class="bi bi-envelope me-1"></i> Email: haianh.pham@benitovn.com</p>
+          <p><i class="bi bi-card-text me-1"></i> Mã số thuế: 0109653575</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Hỗ trợ khách hàng</h6>
+          <p><a href="#">Hướng dẫn đọc sách ebook</a></p>
+          <p><a href="#">Hướng dẫn thuê sách ebook</a></p>
+          <p><a href="#">Hướng dẫn đăng ký tài khoản</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Chính sách - điều khoản</h6>
+          <p><a href="#">Chính sách bảo mật</a></p>
+          <p><a href="#">Điều khoản sử dụng</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Về chúng tôi</h6>
+          <p><a href="#">Giới thiệu</a></p>
+          <p><a href="#">Liên hệ</a></p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex gap-3 mb-3">
+            <div>
+              <small class="d-block mb-1">Tải ứng dụng IOS:</small>
+              <div class="d-flex align-items-center gap-2">
+                <div class="qr-placeholder"><small>QR</small></div>
+                <div style="background:#000;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;"><i class="bi bi-apple"></i> App Store</div>
+              </div>
+            </div>
+            <div>
+              <small class="d-block mb-1">Tải ứng dụng Android:</small>
+              <div class="d-flex align-items-center gap-2">
+                <div class="qr-placeholder"><small>QR</small></div>
+                <div style="background:#000;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;"><i class="bi bi-google-play"></i> Google Play</div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <div style="background:#fff;color:#1a73e8;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:600;">
+              <i class="bi bi-patch-check-fill"></i> ĐÃ THÔNG BÁO<br/><small>BỘ CÔNG THƯƠNG</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Copyright © 2021 - Benito. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 5: LIBRARY (Full page with expanded sidebar)
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-library" class="screen">
+
+  <!-- HEADER -->
+  <header class="bb-header">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-auto">
+          <a href="#" class="header-logo d-flex align-items-center text-decoration-none">
+            <span class="header-logo-text"><span class="logo-icon"><i class="bi bi-book-half"></i></span> Ben Books</span>
+          </a>
+        </div>
+        <div class="col">
+          <div class="header-search input-group">
+            <input type="text" class="form-control" placeholder="Nhập từ khoá tìm kiếm" />
+            <button class="btn btn-search" type="button"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <div class="header-hotline d-flex align-items-center gap-2">
+            <i class="bi bi-telephone-fill text-brand"></i>
+            <div>
+              <div class="hotline-label">Hotline:</div>
+              <div class="hotline-number">0382832993</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-goi-cuoc"><i class="bi bi-gift-fill me-1"></i> Gói Cước</button>
+        </div>
+        <div class="col-auto">
+          <span class="header-phone-display"><i class="bi bi-person-circle me-1"></i> +84944640034</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container py-4">
+    <div class="row">
+      <!-- SIDEBAR (expanded) -->
+      <div class="col-lg-3 col-md-4">
+        <div class="bb-sidebar mb-3" id="sidebarLibrary">
+          <!-- Rendered by JS (full sidebar with topics, authors, languages) -->
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="col-lg-9 col-md-8">
+        <!-- Banner -->
+        <div class="bb-banner-placeholder">
+          <h2>Chào mừng đến với tủ sách<br/>Benbooks dành cho hội viên</h2>
+        </div>
+
+        <!-- Title -->
+        <h5 class="text-h5-18-b mb-3">TẤT CẢ SÁCH (<span id="libraryBookCount">5213</span>)</h5>
+
+        <!-- Filters -->
+        <div class="bb-filter-bar">
+          <div class="bb-filter-tabs">
+            <button class="btn btn-filter-active btn-sm" onclick="filterBooksLibrary('all', this)"><i class="bi bi-grid-3x3-gap me-1"></i> Tất cả</button>
+            <button class="btn btn-filter btn-sm" onclick="filterBooksLibrary('Ebook', this)"><i class="bi bi-book me-1"></i> Ebook</button>
+            <button class="btn btn-filter btn-sm" onclick="filterBooksLibrary('Audio', this)"><i class="bi bi-headphones me-1"></i> Audio</button>
+          </div>
+          <div class="bb-sort-bar d-none d-md-flex align-items-center gap-1">
+            <span class="text-hidden">Sắp xếp theo:</span>
+            <a href="#" class="active">Bán chạy</a>
+            <a href="#">Phổ biến</a>
+            <a href="#">Mới nhất</a>
+            <a href="#">Theo giá</a>
+          </div>
+        </div>
+
+        <!-- Book Grid -->
+        <div class="row g-3" id="bookGridLibrary">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Pagination -->
+        <nav class="mt-4 d-flex justify-content-center">
+          <ul class="pagination bb-pagination">
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bb-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <h6>Công ty cổ phần Văn hoá và Bản quyền Benito</h6>
+          <p>(Hoạt động từ 8h - 17h, Thứ 2 - Thứ 7)</p>
+          <p><i class="bi bi-geo-alt me-1"></i> 28D2 Khu giãn dân Yên Phúc, Hà Đông, Hà Nội</p>
+          <p><i class="bi bi-telephone me-1"></i> Hotline: <strong>0888 080 290</strong></p>
+          <p><i class="bi bi-envelope me-1"></i> Email: haianh.pham@benitovn.com</p>
+          <p><i class="bi bi-card-text me-1"></i> Mã số thuế: 0109653575</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Hỗ trợ khách hàng</h6>
+          <p><a href="#">Hướng dẫn đọc sách ebook</a></p>
+          <p><a href="#">Hướng dẫn thuê sách ebook</a></p>
+          <p><a href="#">Hướng dẫn đăng ký tài khoản</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Chính sách - điều khoản</h6>
+          <p><a href="#">Chính sách bảo mật</a></p>
+          <p><a href="#">Điều khoản sử dụng</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Về chúng tôi</h6>
+          <p><a href="#">Giới thiệu</a></p>
+          <p><a href="#">Liên hệ</a></p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex gap-3 mb-3">
+            <div>
+              <small class="d-block mb-1">Tải ứng dụng IOS:</small>
+              <div class="d-flex align-items-center gap-2">
+                <div class="qr-placeholder"><small>QR</small></div>
+                <div style="background:#000;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;"><i class="bi bi-apple"></i> App Store</div>
+              </div>
+            </div>
+            <div>
+              <small class="d-block mb-1">Tải ứng dụng Android:</small>
+              <div class="d-flex align-items-center gap-2">
+                <div class="qr-placeholder"><small>QR</small></div>
+                <div style="background:#000;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;"><i class="bi bi-google-play"></i> Google Play</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Copyright © 2021 - Benito. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Zalo float -->
+  <div class="zalo-float" title="Chat Zalo">Zalo</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 6: BOOK DETAIL
+     ═══════════════════════════════════════════════════ -->
+<div id="screen-book-detail" class="screen">
+
+  <!-- HEADER -->
+  <header class="bb-header">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-auto">
+          <a href="#" class="header-logo d-flex align-items-center text-decoration-none">
+            <span class="header-logo-text"><span class="logo-icon"><i class="bi bi-book-half"></i></span> Ben Books</span>
+          </a>
+        </div>
+        <div class="col">
+          <div class="header-search input-group">
+            <input type="text" class="form-control" placeholder="Nhập từ khoá tìm kiếm" />
+            <button class="btn btn-search" type="button"><i class="bi bi-search"></i></button>
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <div class="header-hotline d-flex align-items-center gap-2">
+            <i class="bi bi-telephone-fill text-brand"></i>
+            <div>
+              <div class="hotline-label">Hotline:</div>
+              <div class="hotline-number">0382832993</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-goi-cuoc"><i class="bi bi-gift-fill me-1"></i> Gói Cước</button>
+        </div>
+        <div class="col-auto">
+          <span class="header-phone-display"><i class="bi bi-person-circle me-1"></i> +84944640034</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav class="bb-breadcrumb" aria-label="breadcrumb">
+      <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item"><a href="#" onclick="goToLibrary(event)"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="#" onclick="goToLibrary(event)">Ebook</a></li>
+        <li class="breadcrumb-item active" id="breadcrumbTitle">Chi tiết sách</li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- MAIN CONTENT (Left) -->
+      <div class="col-lg-9 col-md-8">
+
+        <!-- Hero: Cover + Info -->
+        <div class="book-detail-hero">
+          <div class="row g-4">
+            <!-- Cover -->
+            <div class="col-md-4">
+              <div class="book-detail-cover" id="detailCover">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="book-detail-thumbs" id="detailThumbs">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+            <!-- Info -->
+            <div class="col-md-8">
+              <div class="book-detail-info" id="detailInfo">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Author section -->
+        <div class="bg-card p-3 rounded mb-3 border" id="authorSection">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Publishing Info -->
+        <div class="publishing-info" id="publishingInfo">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Content Tabs (Giới thiệu / Mục lục) -->
+        <div class="content-tabs bg-card p-3 rounded border mb-3">
+          <ul class="nav nav-tabs" id="contentTabNav" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tabIntro">GIỚI THIỆU</a></li>
+            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tabToc">Mục lục</a></li>
+          </ul>
+          <div class="tab-content pt-3">
+            <div class="tab-pane fade show active" id="tabIntro">
+              <div id="detailDescription" class="text-body-16-r" style="max-height:200px;overflow:hidden;position:relative;">
+                <!-- Rendered by JS -->
+              </div>
+              <div class="text-center mt-2">
+                <a href="#" class="see-more-link" onclick="toggleDescription(event)"><i class="bi bi-chevron-down"></i> Xem thêm ▼</a>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabToc">
+              <ul class="list-group list-group-flush" id="detailToc">
+                <!-- Rendered by JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="comments-section" id="commentsSection">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="section-title mb-0">BÌNH LUẬN</div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-tini-12">1 bình luận</span>
+              <span class="text-hidden text-tini-12">|</span>
+              <span class="text-tini-12 text-hidden">Mới nhất <i class="bi bi-chevron-down"></i></span>
+            </div>
+          </div>
+
+          <!-- Comment Form -->
+          <div class="comment-form mb-3">
+            <textarea class="form-control" rows="3" placeholder="Mời bạn thảo luận, vui lòng nhập nội dung bình luận..."></textarea>
+            <div class="text-end mt-2">
+              <button class="btn btn-brand btn-sm px-4">Gửi bình luận</button>
+            </div>
+          </div>
+
+          <!-- Comments List -->
+          <div id="commentsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Related books: Sách cùng chủ đề -->
+        <div class="related-books-section">
+          <div class="section-title">SÁCH CÙNG CHỦ ĐỀ</div>
+          <div class="row g-3" id="relatedBooksGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Suggested books: Gợi ý cho bạn -->
+        <div class="related-books-section">
+          <div class="section-title">GỢI Ý CHO BẠN</div>
+          <div class="row g-3" id="suggestedBooksGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR (Right) -->
+      <div class="col-lg-3 col-md-4">
+        <!-- VIP Info Box -->
+        <div class="vip-info-box" id="vipInfoBox">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Category sidebar -->
+        <div class="bb-sidebar mb-3" id="sidebarDetail">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Topics -->
+        <div class="bb-sidebar" id="sidebarTopics">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bb-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <h6>Công ty cổ phần Văn hoá và Bản quyền Benito</h6>
+          <p>(Hoạt động từ 8h - 17h, Thứ 2 - Thứ 7)</p>
+          <p><i class="bi bi-geo-alt me-1"></i> 28D2 Khu giãn dân Yên Phúc, Hà Đông, Hà Nội</p>
+          <p><i class="bi bi-telephone me-1"></i> Hotline: <strong>0888 080 290</strong></p>
+          <p><i class="bi bi-envelope me-1"></i> Email: haianh.pham@benitovn.com</p>
+          <p><i class="bi bi-card-text me-1"></i> Mã số thuế: 0109653575</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Hỗ trợ khách hàng</h6>
+          <p><a href="#">Hướng dẫn đọc sách ebook</a></p>
+          <p><a href="#">Hướng dẫn thuê sách ebook</a></p>
+          <p><a href="#">Hướng dẫn đăng ký tài khoản</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Chính sách - điều khoản</h6>
+          <p><a href="#">Chính sách bảo mật</a></p>
+          <p><a href="#">Điều khoản sử dụng</a></p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Về chúng tôi</h6>
+          <p><a href="#">Giới thiệu</a></p>
+          <p><a href="#">Liên hệ</a></p>
+        </div>
+        <div class="col-lg-3 col-md-6"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Copyright © 2021 - Benito. All rights reserved.
+    </div>
+  </footer>
+
+  <div class="zalo-float" title="Chat Zalo">Zalo</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     MODALS (Shared across screens)
+     ═══════════════════════════════════════════════════ -->
+
+<!-- Modal Kích hoạt (Step 2) -->
+<div class="modal fade modal-activate" id="modalActivate" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Đóng" onclick="closeActivateModal()"></button>
+        <h5>Truy cập vào Benbook Data</h5>
+        <button class="btn btn-brand btn-lg px-5" id="btnActivate" onclick="goToLogin()">KÍCH HOẠT TÀI KHOẢN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Chào mừng (Step 4) -->
+<div class="modal fade modal-welcome" id="modalWelcome" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        <div class="vip-icon-circle">V</div>
+        <div class="welcome-text">Chào mừng đến với gói đọc Benbooks<br/>dành cho hội viên</div>
+        <div class="time-remaining mb-3">
+          Thời Gian Còn Lại: <span class="days">31 Ngày</span>
+        </div>
+        <button class="btn btn-brand btn-lg px-5" onclick="goToLibraryFromWelcome()">VÀO ĐỌC SÁCH</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- BenBooks JS -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

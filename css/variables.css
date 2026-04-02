@@ -1,0 +1,245 @@
+/* =====================================================
+   BenBooks – Design System Tokens (variables.css)
+   Vintage · Classic · Sang trọng
+   ===================================================== */
+
+/* ── 1. COLOR PALETTE ── */
+:root {
+  /* Brand */
+  --c-brand:            #B87300;
+  --c-brand-hover:      #9A6200;
+  --c-brand-light:      rgba(184, 115, 0, 0.12);
+
+  /* From Design System mockup */
+  --c-secondary:        #352B2B;
+  --c-dark-text:        #2D2D2D;
+  --c-light-brown:      #B56D00;
+  --c-line-categories:  rgba(181, 109, 0, 0.3);
+  --c-white:            #FFFFFF;
+  --c-price:            #E20000;
+  --c-yellow-line:      #FC9B09;
+  --c-bg-title:         rgba(181, 109, 0, 0.1);
+  --c-link:             #2F69FD;
+  --c-hidden-text:      #A4A4A4;
+
+  /* Extended */
+  --c-paper-bg:         #F5ECD7;
+  --c-card-bg:          #FFFFFF;
+  --c-border:           #E8E0CE;
+  --c-border-light:     #F0E8D8;
+  --c-success:          #28a745;
+  --c-vip-gradient:     linear-gradient(135deg, #B87300, #D4A017);
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.12);
+  --shadow-hover: 0 8px 20px rgba(184,115,0,0.15);
+
+  /* Radius */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* Transitions */
+  --transition: 0.3s ease;
+  --transition-fast: 0.2s ease;
+}
+
+/* ── 2. TYPOGRAPHY VARIANTS (Font Roboto) ── */
+
+/* 12px */
+.text-tini-12 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0px;
+}
+
+/* 14px */
+.text-small-14 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* 16px – Regular */
+.text-body-16-r {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* 16px – Medium */
+.text-body-16-m {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* 16px – Bold */
+.text-body-16-b {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 16px – ExtraBold (H6) */
+.text-h6-16-extrab {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+/* 16px – SemiBold Title (H6) */
+.text-h6-title-16-sb {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* 16px – Medium NavMenu (H6) */
+.text-h6-navmenu-16-m {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+/* 16px – Bold Title Hội Viên */
+.title-hoi-vien {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+}
+
+/* 18px – Regular Button XL */
+.text-btn-xl-18-r {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* 18px – Bold Button XL */
+.text-btn-xl-18-b {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 18px – Bold H5 */
+.text-h5-18-b {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 18px – Bold Uppercase H5 */
+.text-h5-18-b-upp {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* 20px – Bold H4 */
+.text-h4-20-b {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 22px – Bold H3 */
+.text-h3-22-b {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 24px – Bold H2 */
+.text-h2-24-b {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 26px – Bold H1 Book Title */
+.text-h1-booktitle-26-b {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+
+/* ── 3. COLOR UTILITY CLASSES ── */
+
+/* Text colors */
+.text-dark-text       { color: var(--c-dark-text) !important; }
+.text-secondary-theme { color: var(--c-secondary) !important; }
+.text-brand           { color: var(--c-brand) !important; }
+.text-light-brown     { color: var(--c-light-brown) !important; }
+.text-price           { color: var(--c-price) !important; }
+.text-link            { color: var(--c-link) !important; }
+.text-hidden          { color: var(--c-hidden-text) !important; }
+.text-yellow-line     { color: var(--c-yellow-line) !important; }
+
+/* Background colors */
+.bg-brand             { background-color: var(--c-brand) !important; }
+.bg-brand-light       { background-color: var(--c-brand-light) !important; }
+.bg-title             { background-color: var(--c-bg-title) !important; }
+.bg-paper             { background-color: var(--c-paper-bg) !important; }
+.bg-card              { background-color: var(--c-card-bg) !important; }
+
+/* Border colors */
+.border-brand         { border-color: var(--c-brand) !important; }
+.border-line-cat      { border-color: var(--c-line-categories) !important; }
+.border-light         { border-color: var(--c-border-light) !important; }
+
+
+/* ── 4. BUTTON VARIANTS ── */
+
+.btn-brand {
+  background-color: var(--c-brand);
+  border-color: var(--c-brand);
+  color: #fff;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  background-color: var(--c-brand-hover);
+  border-color: var(--c-brand-hover);
+  color: #fff;
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-outline-brand {
+  border: 2px solid var(--c-brand);
+  color: var(--c-brand);
+  background: transparent;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+.btn-outline-brand:hover,
+.btn-outline-brand:focus {
+  background-color: var(--c-brand);
+  color: #fff;
+}
+
+.btn-yellow {
+  background-color: var(--c-yellow-line);
+  border-color: var(--c-yellow-line);
+  color: #fff;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+.btn-yellow:hover {
+  background-color: #e08a00;
+  border-color: #e08a00;
+  color: #fff;
+}
