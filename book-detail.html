@@ -5,160 +5,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BenBooks – Chi tiết sách</title>
   <meta name="description" content="Xem chi tiết sách trên BenBooks – Nền tảng đọc sách bản quyền dành cho hội viên VIP.">
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Roboto:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Bootstrap Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- BenBooks CSS -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="book-detail">
 
-  <!-- HEADER -->
   <div id="app-header"></div>
 
-  <!-- MAIN CONTENT -->
   <main class="container-fluid bb-container py-4">
 
     <!-- Breadcrumb -->
-    <nav class="bb-breadcrumb" aria-label="breadcrumb">
-      <ol class="breadcrumb mb-2">
-        <li class="breadcrumb-item"><a href="homepage.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="homepage.html">Ebook</a></li>
-        <li class="breadcrumb-item active" id="breadcrumbTitle">Chi tiết sách</li>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-3">
+        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Ebook</a></li>
+        <li class="breadcrumb-item active text-brand" id="breadcrumbTitle">Chi tiết sách</li>
       </ol>
     </nav>
 
     <div class="row">
-      <!-- MAIN (Left) -->
+      <!-- ===== MAIN LEFT ===== -->
       <div class="col-lg-9 col-md-8">
 
-        <!-- Hero: Cover + Info -->
+        <!-- HERO: Cover + Info -->
         <div class="book-detail-hero">
-          <div class="row g-4">
-            <!-- Cover -->
-            <div class="col-md-4">
-              <div class="book-detail-cover" id="detailCover">
-                <!-- Rendered by JS -->
-              </div>
-              <div class="book-detail-thumbs" id="detailThumbs">
-                <!-- Rendered by JS -->
-              </div>
+          <div class="row g-0">
+            <div class="col-md-5 col-lg-5">
+              <!-- Cover with arrows -->
+              <div class="detail-cover-wrap" id="detailCover"><!-- JS --></div>
+              <!-- Thumbs row -->
+              <div class="detail-thumbs-row" id="detailThumbs"><!-- JS --></div>
             </div>
-            <!-- Info -->
-            <div class="col-md-8">
-              <div class="book-detail-info" id="detailInfo">
-                <!-- Rendered by JS -->
-              </div>
+            <div class="col-md-7 col-lg-7">
+              <div class="detail-info-col" id="detailInfo"><!-- JS --></div>
             </div>
           </div>
         </div>
 
-        <!-- Author section -->
-        <div class="bg-card p-3 rounded mb-3 border" id="authorSection">
-          <!-- Rendered by JS -->
-        </div>
+        <!-- Author + Publisher -->
+        <div class="detail-author-pub" id="authorSection"><!-- JS --></div>
 
         <!-- Publishing Info -->
-        <div class="publishing-info" id="publishingInfo">
-          <!-- Rendered by JS -->
-        </div>
+        <div class="detail-pub-info" id="publishingInfo"><!-- JS --></div>
 
-        <!-- Content Tabs -->
-        <div class="content-tabs bg-card p-3 rounded border mb-3">
-          <ul class="nav nav-tabs" id="contentTabNav" role="tablist">
+        <!-- Tabs: Giới thiệu / Mục lục -->
+        <div class="detail-tabs-card">
+          <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tabIntro">GIỚI THIỆU</a></li>
             <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tabToc">Mục lục</a></li>
           </ul>
-          <div class="tab-content pt-3">
+          <div class="tab-content">
             <div class="tab-pane fade show active" id="tabIntro">
-              <div id="detailDescription" class="text-body-16-r" style="max-height:200px;overflow:hidden;position:relative;">
-                <!-- Rendered by JS -->
-              </div>
-              <div class="text-center mt-2">
-                <a href="#" class="see-more-link" onclick="toggleDescription(event)"><i class="bi bi-chevron-down"></i> Xem thêm ▼</a>
+              <div id="detailDescription" style="max-height:280px;overflow:hidden;position:relative;"></div>
+              <div class="text-center mt-3">
+                <a href="#" class="see-more-link" onclick="toggleDescription(event)"><i class="bi bi-chevron-down me-1"></i>Xem đầy đủ</a>
               </div>
             </div>
             <div class="tab-pane fade" id="tabToc">
-              <ul class="list-group list-group-flush" id="detailToc">
-                <!-- Rendered by JS -->
-              </ul>
+              <ul class="list-group list-group-flush" id="detailToc"></ul>
             </div>
           </div>
         </div>
 
         <!-- Comments -->
-        <div class="comments-section" id="commentsSection">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="section-title mb-0">BÌNH LUẬN</div>
-            <div class="d-flex align-items-center gap-2">
-              <span class="text-tini-12">1 bình luận</span>
-              <span class="text-hidden text-tini-12">|</span>
-              <span class="text-tini-12 text-hidden">Mới nhất <i class="bi bi-chevron-down"></i></span>
+        <div class="detail-comments-card" id="commentsSection">
+          <div class="comments-heading">BÌNH LUẬN</div>
+          <div id="commentsList"><!-- JS --></div>
+          <div class="comment-form mt-3">
+            <textarea class="form-control" rows="3" placeholder="Mời Bạn để lại bình luận..."></textarea>
+            <div class="text-center mt-3">
+              <button type="button" class="btn btn-yellow btn-sm px-4" onclick="submitComment(this)">Gửi bình luận</button>
             </div>
-          </div>
-          <!-- Comment Form -->
-          <div class="comment-form mb-3">
-            <textarea class="form-control" rows="3" placeholder="Mời bạn thảo luận, vui lòng nhập nội dung bình luận..."></textarea>
-            <div class="text-end mt-2">
-              <button class="btn btn-brand btn-sm px-4">Gửi bình luận</button>
-            </div>
-          </div>
-          <!-- Comments List -->
-          <div id="commentsList">
-            <!-- Rendered by JS -->
           </div>
         </div>
 
-        <!-- Related books -->
+        <!-- Sách cùng chủ đề -->
         <div class="related-books-section">
-          <div class="section-title">SÁCH CÙNG CHỦ ĐỀ</div>
-          <div class="row g-3" id="relatedBooksGrid">
-            <!-- Rendered by JS -->
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="section-title mb-0">SÁCH CÙNG CHỦ ĐỀ</div>
+            <div class="scroll-nav">
+              <button type="button" class="scroll-btn" onclick="scrollSection('relatedBooksGrid',-1)"><i class="bi bi-chevron-left"></i></button>
+              <button type="button" class="scroll-btn" onclick="scrollSection('relatedBooksGrid',1)"><i class="bi bi-chevron-right"></i></button>
+            </div>
           </div>
-        </div>
-
-        <!-- Suggested books -->
-        <div class="related-books-section">
-          <div class="section-title">GỢI Ý CHO BẠN</div>
-          <div class="row g-3" id="suggestedBooksGrid">
-            <!-- Rendered by JS -->
-          </div>
+          <div id="relatedBooksGrid"></div>
         </div>
 
       </div>
 
-      <!-- SIDEBAR (Right) -->
+      <!-- ===== SIDEBAR RIGHT ===== -->
       <div class="col-lg-3 col-md-4">
-        <!-- VIP Info Box -->
-        <div class="vip-info-box" id="vipInfoBox">
-          <!-- Rendered by JS -->
-        </div>
-        <!-- Category sidebar -->
-        <div class="bb-sidebar mb-3" id="sidebarDetail">
-          <!-- Rendered by JS -->
-        </div>
-        <!-- Topics -->
-        <div class="bb-sidebar" id="sidebarTopics">
-          <!-- Rendered by JS -->
-        </div>
+        <div class="vip-info-box" id="vipInfoBox"><!-- JS --></div>
+        <div class="bb-sidebar mb-3" id="sidebarDetail"></div>
+        <div class="bb-sidebar" id="sidebarTopics"></div>
       </div>
-
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- GỢI Ý CHO BẠN — full width, outside the 2-col layout -->
+  <section class="suggested-section">
+    <div class="container-fluid bb-container">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="section-title mb-0">GỢI Ý CHO BẠN</div>
+        <div class="scroll-nav">
+          <button type="button" class="scroll-btn" onclick="scrollSection('suggestedBooksGrid',-1)"><i class="bi bi-chevron-left"></i></button>
+          <button type="button" class="scroll-btn" onclick="scrollSection('suggestedBooksGrid',1)"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+      <div id="suggestedBooksGrid"></div>
+    </div>
+  </section>
+
   <div id="app-footer"></div>
 
-  <!-- Zalo float -->
-  <div class="zalo-float" title="Chat Zalo">Zalo</div>
+  <!-- Floating buttons -->
+  <div class="float-buttons">
+    <a href="#" class="float-btn float-btn-messenger" title="Chat Messenger"><img src="assets/img/Messenger.svg" alt="Messenger"></a>
+    <a href="#" class="float-btn float-btn-zalo" title="Chat Zalo"><img src="assets/img/zalo.svg" alt="Zalo"></a>
+    <button type="button" class="float-btn float-btn-scroll-top" id="scrollTopBtn" title="Lên đầu trang" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="bi bi-chevron-up"></i></button>
+  </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
