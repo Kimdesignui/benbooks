@@ -28,24 +28,23 @@
       </ol>
     </nav>
 
-    <div class="row">
-      <!-- ===== MAIN LEFT ===== -->
-      <div class="col-lg-9 col-md-8">
-
-        <!-- HERO: Cover + Info -->
-        <div class="book-detail-hero">
-          <div class="row g-0">
-            <div class="col-md-6">
-              <!-- Cover with arrows -->
-              <div class="detail-cover-wrap" id="detailCover"><!-- JS --></div>
-              <!-- Thumbs row -->
-              <div class="detail-thumbs-row" id="detailThumbs"><!-- JS --></div>
-            </div>
-            <div class="col-md-6">
-              <div class="detail-info-col" id="detailInfo"><!-- JS --></div>
-            </div>
-          </div>
+    <!-- ══════ HERO: Cover + Info (full width, no sidebar) ══════ -->
+    <div class="book-detail-hero">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <div class="detail-cover-wrap" id="detailCover"><!-- JS --></div>
+          <div class="detail-thumbs-row" id="detailThumbs"><!-- JS --></div>
         </div>
+        <div class="col-md-6">
+          <div class="detail-info-col" id="detailInfo"><!-- JS --></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ 2-COL LAYOUT: Main (left) + Sidebar (right) ══════ -->
+    <div class="row">
+      <!-- MAIN LEFT -->
+      <div class="col-lg-9 col-md-8">
 
         <!-- Author + Publisher -->
         <div class="detail-author-pub" id="authorSection"><!-- JS --></div>
@@ -98,7 +97,7 @@
 
       </div>
 
-      <!-- ===== SIDEBAR RIGHT ===== -->
+      <!-- SIDEBAR RIGHT -->
       <div class="col-lg-3 col-md-4">
         <div class="vip-info-box" id="vipInfoBox"><!-- JS --></div>
         <div class="bb-sidebar mb-3" id="sidebarDetail"></div>
@@ -107,7 +106,7 @@
     </div>
   </main>
 
-  <!-- GỢI Ý CHO BẠN — full width, outside the 2-col layout -->
+  <!-- GỢI Ý CHO BẠN — full width -->
   <section class="suggested-section">
     <div class="container-fluid bb-container">
       <div class="d-flex align-items-center justify-content-between mb-3">
