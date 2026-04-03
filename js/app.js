@@ -386,7 +386,7 @@ function renderBookDetail(book) {
     detailCover.innerHTML = `
       <div class="detail-cover-main" style="${coverBg}">
         <span class="book-type-tag ${tagClass}">${tagIcon} ${book.type}</span>
-        ${book.isVip ? '<div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên"></div>' : ''}
+        <div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên"></div>
         <button type="button" class="cover-arrow cover-arrow-left"><i class="bi bi-chevron-left"></i></button>
         <button type="button" class="cover-arrow cover-arrow-right"><i class="bi bi-chevron-right"></i></button>
       </div>`;
@@ -421,7 +421,9 @@ function renderBookDetail(book) {
 
     if (book.isVip) {
       priceRow = `<div class="info-row"><span class="info-label">Gói cước:</span> <span class="goi-cuoc-badge">HỘI VIÊN</span></div>`;
-      actionBtn = `<button class="btn btn-brand btn-lg w-100 py-3 text-btn-xl-18-b detail-action-btn">Đọc ngay</button>`;
+      actionBtn = `
+        <button class="btn btn-brand btn-lg w-100 py-3 text-btn-xl-18-b detail-action-btn mb-2">Đọc ngay</button>
+        <button class="btn btn-outline-brand btn-lg w-100 py-2 detail-action-btn">Lưu vào tủ sách</button>`;
     } else {
       priceRow = `<div class="info-row"><span class="info-label">Giá có thuế:</span> <span class="price-amount">${book.price}</span></div>`;
       actionBtn = `
@@ -578,11 +580,11 @@ function renderBookDetail(book) {
   const vipBox = document.getElementById('vipInfoBox');
   if (vipBox) {
     vipBox.innerHTML = `
-      <div class="vip-icon">V</div>
+      <img src="assets/img/vip-icon.svg" alt="VIP" class="vip-box-icon">
       <p>${book.isVip
         ? 'Bạn đang là hội viên VIP BenBooks. Tận hưởng quyền đọc sách không giới hạn.'
         : 'Đọc toàn bộ kho sách 10,000+ sách điện tử, sách nói, sách tương tác... trên toàn hệ thống benbooks'}</p>
-      <button class="btn btn-outline-brand btn-sm w-100">${book.isVip ? 'Quản lý hội viên' : 'Trở thành hội viên'}</button>`;
+      <button class="btn btn-brand w-100 vip-box-btn">${book.isVip ? 'Quản lý hội viên' : 'Trở thành hội viên'}</button>`;
   }
 
   // ── Related books (within col-9) ──

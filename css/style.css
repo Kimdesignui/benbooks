@@ -1073,7 +1073,7 @@ img {
 
 /* Cover with arrows */
 .detail-cover-main {
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3;
   border-radius: var(--radius-md);
   background-size: cover;
   background-position: center;
@@ -1308,10 +1308,10 @@ img {
   padding: 20px 24px;
   margin-bottom: 20px;
   border: 1px solid var(--c-border-light);
-  display: flex;
 }
 .ap-left, .ap-right {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   padding: 8px 0;
 }
 .ap-divider {
@@ -1581,6 +1581,33 @@ img {
 .suggested-section {
   background: var(--c-bg-paper);
   padding: 32px 0 40px;
+}
+
+/* VIP Info Box (sidebar) */
+.vip-info-box {
+  background: linear-gradient(180deg, #FFFCF5, #FFF5E0);
+  border: 1px solid var(--c-yellow-line);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.vip-box-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+}
+.vip-info-box p {
+  font-size: 15px;
+  color: var(--c-dark-text);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.vip-box-btn {
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 12px 24px;
 }
 
 /* Related books sections */
