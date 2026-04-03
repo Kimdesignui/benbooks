@@ -961,44 +961,59 @@ img {
 
 .login-card {
   background: var(--c-white);
-  border-radius: var(--radius-lg);
-  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--c-border-light);
+  padding: 40px 36px;
   width: 100%;
-  max-width: 480px;
-  box-shadow: var(--shadow-md);
+  max-width: 460px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
 
 .login-card h4 {
   text-align: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin-bottom: 28px;
   color: var(--c-dark-text);
 }
 
 .login-card .input-group {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  border: 1.5px solid var(--c-border);
+  border-radius: 99px;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.login-card .input-group:focus-within {
+  border-color: var(--c-brand);
 }
 
 .login-card .input-group .input-group-text {
-  background: var(--c-white);
-  border: 1px solid var(--c-border);
+  background: transparent;
+  border: none;
+  color: var(--c-brand);
+  font-size: 16px;
+  padding: 10px 14px;
+  border-right: 1px solid var(--c-border-light);
+}
+
+.login-card .input-group .input-group-text:last-child {
   border-right: none;
-  color: var(--c-hidden-text);
+  border-left: 1px solid var(--c-border-light);
 }
 
 .login-card .input-group .form-control {
-  border: 1px solid var(--c-border);
-  border-left: none;
+  border: none;
   font-size: 15px;
   padding: 12px 14px;
+  background: transparent;
 }
 
 .login-card .input-group .form-control:focus {
   box-shadow: none;
-  border-color: var(--c-brand);
 }
 
 .login-card .btn-login {
@@ -1007,8 +1022,9 @@ img {
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin-top: 8px;
+  border-radius: 99px;
 }
 
 /* Loading spinner */
