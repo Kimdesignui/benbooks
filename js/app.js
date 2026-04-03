@@ -379,12 +379,10 @@ function renderBookDetail(book) {
     const tagIcon = book.type === 'Audio'
       ? '<img src="assets/img/audio-tag.svg" alt="" class="tag-icon">'
       : '<img src="assets/img/ebook-tag.svg" alt="" class="tag-icon">';
-    const coverBg = book.coverImage
-      ? `background-image:url('${book.coverImage}');background-size:cover;background-position:center;`
-      : `background:${book.coverColor};`;
 
     detailCover.innerHTML = `
-      <div class="detail-cover-main" style="${coverBg}">
+      <div class="detail-cover-main">
+        ${book.coverImage ? `<img src="${book.coverImage}" alt="${book.title}" class="cover-img">` : ''}
         <span class="book-type-tag ${tagClass}">${tagIcon} ${book.type}</span>
         <div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên"></div>
         <button type="button" class="cover-arrow cover-arrow-left"><i class="bi bi-chevron-left"></i></button>
@@ -419,7 +417,10 @@ function renderBookDetail(book) {
     let priceRow = '';
     let actionBtn = '';
 
-    if (book.isVip) {
+    // Yêu cầu: Tất cả sách đều hiện tag Hội Viên → luôn VIP
+    const isVip = true;
+
+    if (isVip) {
       priceRow = `<div class="info-row"><span class="info-label">Gói cước:</span> <span class="goi-cuoc-badge">HỘI VIÊN</span></div>`;
       actionBtn = `
         <button class="btn btn-brand btn-lg w-100 py-3 text-btn-xl-18-b detail-action-btn mb-2">Đọc ngay</button>

@@ -982,7 +982,7 @@ img {
 .login-card .input-group {
   margin-bottom: 14px;
   border: 1.5px solid var(--c-border);
-  border-radius: 99px;
+  border-radius: 12px;
   overflow: hidden;
   transition: border-color var(--transition-fast);
 }
@@ -1018,13 +1018,13 @@ img {
 
 .login-card .btn-login {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin-top: 8px;
-  border-radius: 99px;
+  border-radius: 12px;
 }
 
 /* Loading spinner */
@@ -1081,7 +1081,6 @@ img {
   border-radius: var(--radius-lg);
   padding: 24px;
   margin-bottom: 20px;
-  border: 1px solid var(--c-border-light);
 }
 .book-detail-hero > .row > [class*="col-"]:last-child {
   padding-left: 32px;
@@ -1089,12 +1088,19 @@ img {
 
 /* Cover with arrows */
 .detail-cover-main {
-  aspect-ratio: 2/3;
+  aspect-ratio: 3/4;
   border-radius: var(--radius-md);
-  background-size: cover;
-  background-position: center;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f0e5;
+}
+.detail-cover-main img.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .detail-cover-main .book-type-tag {
   position: absolute;
