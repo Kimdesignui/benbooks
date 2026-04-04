@@ -172,8 +172,8 @@ function initBookDetail() {
   renderBookDetail(book);
 
   // Render sidebars
-  renderSidebar('sidebarDetail', false);
-  renderTopicsSidebar('sidebarTopics');
+  renderSidebar('sidebarDetail', true);
+  // renderTopicsSidebar('sidebarTopics');
 }
 
 // Navigate to book detail
@@ -372,220 +372,118 @@ function renderBookDetail(book) {
   const breadcrumb = document.getElementById('breadcrumbTitle');
   if (breadcrumb) breadcrumb.textContent = book.title;
 
-  // ── Cover with prev/next arrows ──
-  const detailCover = document.getElementById('detailCover');
-  if (detailCover) {
-    const tagClass = book.type === 'Audio' ? 'tag-audio' : 'tag-ebook';
-    const tagIcon = book.type === 'Audio'
-      ? '<img src="assets/img/audio-tag.svg" alt="" class="tag-icon">'
-      : '<img src="assets/img/ebook-tag.svg" alt="" class="tag-icon">';
+  // 1. Render Cover & Badge Ebook/Audio (CỘT TRÁI)
+  const detailBadgeType = document.getElementById('detailBadgeType');
+  const detailCoverImage = document.getElementById('detailCoverImage');
+  const detailThumbsList = document.getElementById('detailThumbsList');
 
-    detailCover.innerHTML = `
-      <div class="detail-cover-main">
-        ${book.coverImage ? `<img src="${book.coverImage}" alt="${book.title}" class="cover-img">` : ''}
-        <span class="book-type-tag ${tagClass}">${tagIcon} ${book.type}</span>
-        <div class="book-vip-tag"><img src="assets/img/tag-hoi-vien.svg" alt="Hội viên"></div>
-        <button type="button" class="cover-arrow cover-arrow-left"><i class="bi bi-chevron-left"></i></button>
-        <button type="button" class="cover-arrow cover-arrow-right"><i class="bi bi-chevron-right"></i></button>
-      </div>`;
+  if (detailBadgeType) {
+    const tagClass = book.type === 'Audio' ? 'text-info border-info' : 'text-primary border-primary';
+    const tagIcon = book.type === 'Audio' ? 'bi-volume-up' : 'bi-phone-vibrate';
+    detailBadgeType.innerHTML = `<span class="badge rounded-pill bg-white ${tagClass} px-3 py-2 d-flex align-items-center gap-1 border shadow-sm">
+                                  <i class="bi ${tagIcon}"></i> ${book.type}
+                                </span>`;
   }
 
-  // ── Thumbnails: 3 thumbs + "Xem thêm hình ảnh" + "Đọc thử/Nghe thử" ──
-  const thumbs = document.getElementById('detailThumbs');
-  if (thumbs) {
+  if (detailCoverImage) {
+    detailCoverImage.innerHTML = book.coverImage
+      ? `<img src="${book.coverImage}" alt="${book.title}" class="book-cover-img shadow-sm w-100 h-100 object-fit-contain">`
+      : `<div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:${book.coverColor};"><i class="bi bi-book fs-1 text-white"></i></div>`;
+  }
+
+  // Render Thumbnail (3 thumbs giả lập dựa trên bìa gốc)
+  if (detailThumbsList) {
     const thumbBg = book.coverImage
-      ? `background-image:url('${book.coverImage}');background-size:cover;background-position:center;`
-      : `background:${book.coverColor};`;
+      ? `<img src="${book.coverImage}" class="w-100 h-100 object-fit-cover">`
+      : `<div class="w-100 h-100" style="background:${book.coverColor};"></div>`;
+      
     const tryIcon = book.type === 'Audio' ? 'nghe-thu.svg' : 'doc-thu.svg';
     const tryLabel = book.type === 'Audio' ? 'Nghe thử' : 'Đọc thử';
 
-    thumbs.innerHTML = `
-      <div class="thumb-item active" style="${thumbBg}"></div>
-      <div class="thumb-item" style="${thumbBg}"></div>
-      <div class="thumb-item" style="${thumbBg}"></div>
-      <div class="thumb-item thumb-more">Xem thêm<br>hình ảnh</div>
-      <div class="thumb-item thumb-action">
-        <img src="assets/img/${tryIcon}" alt="${tryLabel}" class="thumb-action-icon">
-        <span>${tryLabel}</span>
+    detailThumbsList.innerHTML = `
+      <div class="thumb-item active border-brand border-2 p-0">${thumbBg}</div>
+      <div class="thumb-item">${thumbBg}</div>
+      <div class="thumb-item">${thumbBg}</div>
+      <div class="thumb-item dark-overlay position-relative">
+        ${thumbBg}
+        <div class="overlay-text text-tini-12 text-white text-center position-absolute top-50 start-50 translate-middle w-100 lh-sm">Xem thêm<br>hình ảnh</div>
+      </div>
+      <!-- Nút Đọc/Nghe thử -->
+      <div class="thumb-action-box text-center cursor-pointer border rounded d-flex flex-column align-items-center justify-content-center bg-white" onclick="window.open('https://sachbanquyen.com.vn/doc-thu/23314', '_blank')">
+        <img src="assets/img/${tryIcon}" alt="${tryLabel}" class="mb-1" style="height: 24px;">
+        <span class="text-tini-12 text-dark-text">${tryLabel}</span>
       </div>`;
   }
 
-  // ── Info column ──
-  const info = document.getElementById('detailInfo');
-  if (info) {
-    const starsHtml = '<span class="stars-yellow">★</span>'.repeat(Math.floor(book.rating));
-    let priceRow = '';
-    let actionBtn = '';
+  // 2. Render Info (CỘT PHẢI)
+  const detailInfoMain = document.getElementById('detailInfoMain');
+  if (detailInfoMain) {
+    const starsHtml = '<i class="bi bi-star-fill text-warning"></i>'.repeat(Math.floor(book.rating));
 
-    // Yêu cầu: Tất cả sách đều hiện tag Hội Viên → luôn VIP
-    const isVip = true;
+    detailInfoMain.innerHTML = `
+      <h1 class="text-h1-booktitle-26-b text-dark-text mb-2 lh-sm">
+        [${book.type}] ${book.title}
+      </h1>
+      ${book.subtitle ? `<p class="text-h4-20-b text-dark-text mb-4">${book.subtitle}</p>` : '<p class="mb-4"></p>'}
 
-    if (isVip) {
-      priceRow = `<div class="info-row"><span class="info-label">Gói cước:</span> <span class="goi-cuoc-badge">HỘI VIÊN</span></div>`;
-      actionBtn = `
-        <button class="btn btn-brand btn-lg w-100 py-3 text-btn-xl-18-b detail-action-btn mb-2">Đọc ngay</button>
-        <button class="btn btn-outline-brand btn-lg w-100 py-2 detail-action-btn">Lưu vào tủ sách</button>`;
-    } else {
-      priceRow = `<div class="info-row"><span class="info-label">Giá có thuế:</span> <span class="price-amount">${book.price}</span></div>`;
-      actionBtn = `
-        <div class="d-flex gap-2">
-          <button class="btn btn-brand btn-lg flex-fill text-btn-xl-18-b detail-action-btn">Mua ngay</button>
-          <button class="btn btn-outline-brand btn-lg flex-fill text-btn-xl-18-b detail-action-btn">Thêm vào giỏ</button>
-        </div>`;
-    }
-
-    info.innerHTML = `
-      <h1 class="detail-title">[${book.type}]  ${book.title}</h1>
-      ${book.subtitle ? `<div class="detail-subtitle">${book.subtitle}</div>` : ''}
-      <div class="detail-stats">
-        <span class="detail-rating">${book.rating}</span>
-        <span class="detail-stars">${starsHtml}</span>
-        <span class="stat-sep">|</span>
-        <span><b>${book.views.toLocaleString()}</b> Lượt xem</span>
-        <span class="stat-sep">|</span>
-        <span><b>${book.editions.toLocaleString()}</b> Đã bán</span>
-        <a href="#" class="detail-share" title="Chia sẻ"><i class="bi bi-share"></i></a>
-      </div>
-      <div class="info-row"><span class="info-label">Danh mục:</span> ${book.categories.map(c => `<a href="#" class="cat-link">${c}</a>`).join('  ')}</div>
-      ${priceRow}
-      <hr class="detail-hr">
-      <div class="detail-format-label">Chọn loại</div>
-      <div class="detail-format-chooser">
-        <div class="fmt-item${book.bookType === 'Sách in' ? ' active' : ''}">
-          <img src="assets/img/sach-in.svg" alt="Sách in" class="fmt-icon">
-          <span>Sách in</span>
+      <!-- Rating & Stats -->
+      <div class="d-flex align-items-center gap-3 mb-4 text-small-14 text-dark-text">
+        <div class="d-flex align-items-center">
+          <span class="fw-bold me-1">${book.rating}</span>
+          <div class="text-warning d-flex gap-1">${starsHtml}</div>
         </div>
-        <div class="fmt-item${book.type === 'Ebook' ? ' active' : ''}">
-          <img src="assets/img/ebook.svg" alt="Ebook" class="fmt-icon">
-          <span>Ebook</span>
-        </div>
-        <div class="fmt-item${book.type === 'Audio' ? ' active' : ''}">
-          <img src="assets/img/audiobook.svg" alt="Audio" class="fmt-icon">
-          <span>Audio</span>
-        </div>
-        <div class="fmt-item">
-          <img src="assets/img/multi-books.svg" alt="Sách tương tác" class="fmt-icon">
-          <span>Sách<br>tương tác</span>
+        <div class="vr text-hidden"></div>
+        <div><span class="fw-bold">${book.views.toLocaleString()}</span> Lượt xem</div>
+        <div class="vr text-hidden"></div>
+        <div><span class="fw-bold">${book.editions.toLocaleString()}</span> Đã bán</div>
+        <div class="ms-auto">
+          <button class="btn btn-light rounded-circle btn-sm p-2 shadow-sm d-flex align-items-center justify-content-center" style="width:36px; height:36px;"><i class="bi bi-share-fill text-dark-text"></i></button>
         </div>
       </div>
-      ${actionBtn}`;
 
-    // Format chooser click
-    info.querySelectorAll('.fmt-item').forEach(item => {
-      item.addEventListener('click', () => {
-        info.querySelectorAll('.fmt-item').forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
-  }
+      <!-- Meta Info -->
+      <table class="table table-borderless table-sm w-auto mb-4 text-body-16-r">
+        <tbody>
+          <tr>
+            <td class="text-hidden pe-4 py-2">Danh mục:</td>
+            <td class="py-2">
+              ${book.categories.map(c => `<a href="#" class="text-light-brown text-decoration-none me-2">${c}</a>`).join('')}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-hidden pe-4 py-2">Gói cước:</td>
+            <td class="py-2 title-hoi-vien text-brand">HỘI VIÊN</td>
+          </tr>
+        </tbody>
+      </table>
 
-  // ── Author + Publisher ──
-  const authorSection = document.getElementById('authorSection');
-  if (authorSection) {
-    const tryAvatar = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face';
-    authorSection.innerHTML = `
-      <div class="d-flex flex-wrap align-items-stretch">
-        <!-- Author side -->
-        <div class="ap-left">
-          <div class="ap-label">Tác giả</div>
-          <div class="d-flex align-items-center gap-3">
-            <div class="ap-avatar-wrap">
-              <img src="${tryAvatar}" alt="${book.author}" class="ap-avatar">
-              <span class="ap-verified"><i class="bi bi-check-circle-fill"></i></span>
-            </div>
-            <div>
-              <div class="ap-name">${book.author}</div>
-              <div class="ap-role">Chủ biên</div>
-            </div>
-            <a href="#" class="btn btn-outline-brand btn-sm ap-detail-btn">Xem chi tiết</a>
+      <hr class="mb-4" style="border-color: #E8E0CE;">
+
+      <!-- Format Selector -->
+      <div class="format-selector mb-5">
+        <p class="text-body-16-m text-dark-text mb-3">Chọn loại</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <div class="format-box text-center p-2 rounded ${book.bookType === 'Sách in' ? 'active bg-brand-light border-brand' : 'border-light'}">
+            <img src="assets/img/sach-in.svg" alt="Sách in" class="mb-2" style="height:32px; ${book.bookType !== 'Sách in' ? 'filter: grayscale(1);' : ''}">
+            <div class="text-small-14 ${book.bookType === 'Sách in' ? 'text-dark-text' : 'text-hidden'}">Sách in</div>
+          </div>
+          <div class="format-box text-center p-2 rounded ${book.type === 'Ebook' ? 'active bg-brand-light border-brand' : 'border-light'}">
+            <img src="assets/img/ebook.svg" alt="Ebook" class="mb-2" style="height:32px; ${book.type !== 'Ebook' ? 'filter: grayscale(1);' : ''}">
+            <div class="text-small-14 ${book.type === 'Ebook' ? 'text-dark-text' : 'text-hidden'}">Ebook</div>
+          </div>
+          <div class="format-box text-center p-2 rounded ${book.type === 'Audio' ? 'active bg-brand-light border-brand' : 'border-light'}">
+            <img src="assets/img/audio-tag.svg" alt="Audio" class="mb-2" style="height:32px; ${book.type !== 'Audio' ? 'filter: grayscale(1);' : ''}">
+            <div class="text-small-14 ${book.type === 'Audio' ? 'text-dark-text' : 'text-hidden'}">Audio</div>
+          </div>
+          <div class="format-box text-center p-2 rounded border-light">
+            <img src="assets/img/multi-books.svg" alt="Sách tương tác" class="mb-2" style="height:32px; filter: grayscale(1);">
+            <div class="text-small-14 text-hidden lh-sm">Sách<br>tương tác</div>
           </div>
         </div>
-        <!-- Divider -->
-        <div class="ap-divider"></div>
-        <!-- Publisher side -->
-        <div class="ap-right">
-          <div class="ap-label">Được bán bởi:</div>
-          <div class="d-flex align-items-center gap-3">
-            <img src="assets/img/benito-logo-short.svg" alt="Benito" class="ap-pub-logo">
-            <div>
-              <div class="ap-name">${book.publisherFull || book.publisher}</div>
-              <div class="ap-verified-text"><i class="bi bi-patch-check-fill text-success me-1"></i>Nhà phát hành tin cậy</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
+      </div>
 
-  // ── Publishing Info (2-col table) ──
-  const pubInfo = document.getElementById('publishingInfo');
-  if (pubInfo) {
-    pubInfo.innerHTML = `
-      <div class="pub-heading">THÔNG TIN XUẤT BẢN</div>
-      <table class="pub-table">
-        <tr><td class="pub-icon"><i class="bi bi-building"></i></td><td class="pub-dt">NXB:</td><td class="pub-dd">${book.publisher}</td>
-            <td class="pub-icon"><i class="bi bi-translate"></i></td><td class="pub-dt">Người dịch:</td><td class="pub-dd">${book.author}</td></tr>
-        <tr><td class="pub-icon"><i class="bi bi-calendar"></i></td><td class="pub-dt">Năm XB:</td><td class="pub-dd">${book.yearPublished}</td>
-            <td class="pub-icon"><i class="bi bi-book"></i></td><td class="pub-dt">Loại sách:</td><td class="pub-dd">${book.bookType}</td></tr>
-        <tr><td class="pub-icon"><i class="bi bi-arrows-fullscreen"></i></td><td class="pub-dt">Kt bìa:</td><td class="pub-dd">${book.size || 'N/A'}</td>
-            <td class="pub-icon"><i class="bi bi-file-earmark"></i></td><td class="pub-dt">Số trang:</td><td class="pub-dd">${book.pages ? book.pages + ' trang' : 'N/A'}</td></tr>
-        <tr><td class="pub-icon"><i class="bi bi-globe"></i></td><td class="pub-dt">Quốc gia:</td><td class="pub-dd">Đức</td>
-            <td class="pub-icon"><i class="bi bi-globe2"></i></td><td class="pub-dt">Ngôn ngữ:</td><td class="pub-dd">${book.language}</td></tr>
-        <tr><td class="pub-icon"><i class="bi bi-upc"></i></td><td class="pub-dt">Mã ISBN:</td><td class="pub-dd">${book.isbn || 'N/A'}</td>
-            <td class="pub-icon"><i class="bi bi-upc-scan"></i></td><td class="pub-dt">Mã ISBN Điện tử:</td><td class="pub-dd">${book.maISBN || book.isbn || 'N/A'}</td></tr>
-      </table>`;
-  }
-
-  // ── Description ──
-  const desc = document.getElementById('detailDescription');
-  if (desc) {
-    desc.innerHTML = `<p>${book.description.replace(/\n\n/g, '</p><p>')}</p>`;
-  }
-
-  // ── TOC ──
-  const toc = document.getElementById('detailToc');
-  if (toc) {
-    toc.innerHTML = book.chapters.map(ch =>
-      `<li class="list-group-item"><i class="bi bi-list-ul me-2 text-brand"></i>${ch}</li>`
-    ).join('');
-  }
-
-  // ── Comments ──
-  const commentsList = document.getElementById('commentsList');
-  if (commentsList) {
-    if (book.comments.length > 0) {
-      commentsList.innerHTML = book.comments.map(c => `
-        <div class="cmt-item">
-          <div class="cmt-avatar">${c.user[0]}</div>
-          <div class="cmt-body">
-            <div class="cmt-user">${c.user}</div>
-            <div class="cmt-text">${c.text}</div>
-            <div class="cmt-meta"><a href="#" class="cmt-reply-link">Trả lời</a> <span class="cmt-time">- ${c.time}</span></div>
-            ${c.reply ? `
-              <div class="cmt-reply-box">
-                <div class="d-flex align-items-center gap-2 mb-1">
-                  <img src="assets/img/benito-logo-short.svg" alt="" class="cmt-reply-avatar">
-                  <span class="cmt-reply-name">${c.reply.user || 'Thành Luân'}</span>
-                  ${c.badge ? `<span class="cmt-badge">${c.badge}</span>` : '<span class="cmt-badge">Quản Trị Viên</span>'}
-                </div>
-                <div class="cmt-reply-text">${c.reply.text || ''}</div>
-                <div class="cmt-meta"><a href="#" class="cmt-reply-link">Trả lời</a> <span class="cmt-time">- ${c.reply.time || c.time}</span></div>
-              </div>` : ''}
-          </div>
-        </div>`).join('');
-    } else {
-      commentsList.innerHTML = '';
-    }
-  }
-
-  // ── VIP Info Box ──
-  const vipBox = document.getElementById('vipInfoBox');
-  if (vipBox) {
-    vipBox.innerHTML = `
-      <img src="assets/img/vip-icon.svg" alt="VIP" class="vip-box-icon">
-      <p>${book.isVip
-        ? 'Bạn đang là hội viên VIP BenBooks. Tận hưởng quyền đọc sách không giới hạn.'
-        : 'Đọc toàn bộ kho sách 10,000+ sách điện tử, sách nói, sách tương tác... trên toàn hệ thống benbooks'}</p>
-      <button class="btn btn-brand w-100 vip-box-btn">${book.isVip ? 'Quản lý hội viên' : 'Trở thành hội viên'}</button>`;
+      <button class="btn btn-brand w-100 py-3 text-btn-xl-18-b shadow-sm rounded-3">Đọc ngay</button>
+    `;
   }
 
   // ── Related books (within col-9) ──

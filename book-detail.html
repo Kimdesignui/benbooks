@@ -14,119 +14,313 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="book-detail">
-
+  <!-- HEADER CHUNG -->
   <div id="app-header"></div>
 
-  <main class="container-fluid bb-container py-4">
+  <!-- SECTION: Chi tiết sách (Nền trắng full-width) -->
+  <div class="book-detail-wrapper">
+    <div class="container-fluid bb-container py-3">
 
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-3">
-        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="index.html">Ebook</a></li>
-        <li class="breadcrumb-item active text-brand" id="breadcrumbTitle">Chi tiết sách</li>
-      </ol>
-    </nav>
+      <!-- BREADCRUMB -->
+      <nav aria-label="breadcrumb" class="bg-white p-3 rounded-3 mb-4">
+        <ol class="breadcrumb m-0 text-small-14">
+          <li class="breadcrumb-item"><a href="index.html" class="text-dark-text text-decoration-none"><i class="bi bi-house-door-fill text-hidden me-1"></i></a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-dark-text text-decoration-none">Ebook</a></li>
+          <li class="breadcrumb-item active text-brand" aria-current="page">Chi tiết sách</li>
+        </ol>
+      </nav>
 
-    <!-- ══════ HERO: Cover + Info (full width, no sidebar) ══════ -->
-    <div class="book-detail-hero">
-      <div class="row g-0">
-        <div class="col-md-6">
-          <div class="detail-cover-wrap" id="detailCover"><!-- JS --></div>
-          <div class="detail-thumbs-row" id="detailThumbs"><!-- JS --></div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-info-col" id="detailInfo"><!-- JS --></div>
-        </div>
-      </div>
-    </div>
+      <!-- HERO SECTION -->
+      <div class="book-detail-hero bg-white shadow-sm">
+        <div class="row g-5">
 
-    <!-- ══════ 2-COL LAYOUT: Main (left) + Sidebar (right) ══════ -->
-    <div class="row">
-      <!-- MAIN LEFT -->
-      <div class="col-lg-9 col-md-8">
-
-        <!-- Author + Publisher -->
-        <div class="detail-author-pub" id="authorSection"><!-- JS --></div>
-
-        <!-- Publishing Info -->
-        <div class="detail-pub-info" id="publishingInfo"><!-- JS --></div>
-
-        <!-- Tabs: Giới thiệu / Mục lục -->
-        <div class="detail-tabs-card">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tabIntro">GIỚI THIỆU</a></li>
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tabToc">Mục lục</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="tabIntro">
-              <div id="detailDescription" style="max-height:280px;overflow:hidden;position:relative;"></div>
-              <div class="text-center mt-3">
-                <a href="#" class="see-more-link" onclick="toggleDescription(event)"><i class="bi bi-chevron-down me-1"></i>Xem đầy đủ</a>
+          <!-- CỘT TRÁI: HÌNH ẢNH (Tỉ lệ 1:1) -->
+          <div class="col-md-6 col-lg-6">
+            <!-- Khung vuông chứa ảnh bìa -->
+            <div class="book-cover-square-box position-relative">
+              <div class="badge-top-left" id="detailBadgeType">
+                <!-- JS render tag Ebook/Audio -->
+              </div>
+              <div class="book-cover-inner" id="detailCoverImage">
+                <!-- JS render ảnh bìa chính -->
+              </div>
+              <div class="badge-bottom-center">
+                <img src="assets/img/tag-hoi-vien.svg" alt="Hội Viên" class="tag-hoi-vien-img">
               </div>
             </div>
-            <div class="tab-pane fade" id="tabToc">
-              <ul class="list-group list-group-flush" id="detailToc"></ul>
+
+            <!-- Dải ảnh Thumbnail -->
+            <div class="book-thumbs-slider mt-3 d-flex align-items-center gap-2">
+              <button class="btn btn-sm btn-light rounded-circle thumb-nav-btn"><i class="bi bi-chevron-left text-muted"></i></button>
+              <div class="thumbs-track flex-grow-1 d-flex gap-3 overflow-hidden" id="detailThumbsList">
+                <!-- JS render thumbnail -->
+              </div>
+              <button class="btn btn-sm btn-light rounded-circle thumb-nav-btn"><i class="bi bi-chevron-right text-muted"></i></button>
             </div>
           </div>
-        </div>
 
-        <!-- Comments -->
-        <div class="detail-comments-card" id="commentsSection">
-          <div class="comments-heading">BÌNH LUẬN</div>
-          <div id="commentsList"><!-- JS --></div>
-          <div class="comment-form mt-3">
-            <textarea class="form-control" rows="3" placeholder="Mời Bạn để lại bình luận..."></textarea>
-            <div class="text-center mt-3">
-              <button type="button" class="btn btn-yellow btn-sm px-4" onclick="submitComment(this)">Gửi bình luận</button>
+          <!-- CỘT PHẢI: THÔNG TIN SÁCH (Tỉ lệ 1:1) -->
+          <div class="col-md-6 col-lg-6">
+            <div class="book-info-main ps-lg-4" id="detailInfoMain">
+              <!-- JS render Title, Rating, Meta, Format Selector và CTA -->
             </div>
           </div>
-        </div>
 
-        <!-- Sách cùng chủ đề -->
-        <div class="related-books-section">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <div class="section-title mb-0">SÁCH CÙNG CHỦ ĐỀ</div>
-            <div class="scroll-nav">
-              <button type="button" class="scroll-btn" onclick="scrollSection('relatedBooksGrid',-1)"><i class="bi bi-chevron-left"></i></button>
-              <button type="button" class="scroll-btn" onclick="scrollSection('relatedBooksGrid',1)"><i class="bi bi-chevron-right"></i></button>
-            </div>
-          </div>
-          <div id="relatedBooksGrid"></div>
         </div>
-
       </div>
 
-      <!-- SIDEBAR RIGHT -->
-      <div class="col-lg-3 col-md-4">
-        <div class="vip-info-box" id="vipInfoBox"><!-- JS --></div>
-        <div class="bb-sidebar mb-3" id="sidebarDetail"></div>
-        <div class="bb-sidebar" id="sidebarTopics"></div>
+      <!-- ══════ 2-COL LAYOUT: Main (left) + Sidebar (right) ══════ -->
+      <div class="row g-4 mb-5">
+        <!-- MAIN LEFT -->
+        <div class="col-lg-8 col-xl-9" id="main-content-col">
+
+          <!-- 1. Tác giả + Nhà phát hành -->
+          <div class="card border-light rounded-3 mb-4 shadow-sm" style="border-color: #E8E0CE !important;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <!-- Tác giả -->
+                <div class="col-md-6 p-4 border-end" style="border-color: #E8E0CE !important;">
+                  <div class="text-hidden text-body-16-m mb-3">Tác giả</div>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="position-relative">
+                        <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1" alt="Author" class="rounded-circle object-fit-cover" width="56" height="56">
+                        <i class="bi bi-check-circle-fill text-success position-absolute bottom-0 end-0 bg-white rounded-circle lh-1" style="font-size: 14px; transform: translate(10%, 10%);"></i>
+                      </div>
+                      <div>
+                        <div class="text-h5-18-b text-dark-text">Elizabeth Cole</div>
+                        <div class="text-body-16-r text-hidden">Chủ biên</div>
+                      </div>
+                    </div>
+                    <button class="btn btn-sm rounded-pill px-4 py-2 text-brand fw-bold" style="background-color: var(--c-bg-paper);">Xem chi tiết</button>
+                  </div>
+                </div>
+                <!-- Được bán bởi -->
+                <div class="col-md-6 p-4">
+                  <div class="text-hidden text-body-16-m mb-3">Được bán bởi:</div>
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="assets/img/benito-logo-short.svg" alt="Benito" class="rounded-3 object-fit-cover bg-white border border-light p-1" width="56" height="56">
+                    <div>
+                      <div class="text-h5-18-b text-dark-text mb-1">Công ty CP văn hóa và bản quyền Benito</div>
+                      <div class="text-small-14 text-dark-text d-flex align-items-center gap-1">
+                        <i class="bi bi-shield-check text-success fs-5 lh-1"></i> Nhà phát hành tin cậy
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Thông tin xuất bản -->
+          <div class="card rounded-3 mb-4 shadow-sm" style="border-color: #E8E0CE !important; background-color: #FAF6F0;">
+            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+              <h3 class="text-h4-20-b text-dark-text m-0 text-uppercase">THÔNG TIN XUẤT BẢN</h3>
+            </div>
+            <div class="card-body p-0 mt-3">
+              <div class="row g-0 border-top" style="border-color: #E8E0CE !important;">
+
+                <!-- Cột 1: Thông tin xuất bản -->
+                <div class="col-md-6 border-end" style="border-color: #E8E0CE !important;">
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 140px;"><i class="bi bi-buildings fs-5 text-hidden"></i> NXB:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">Nhà Xuất Bản xây dựng</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 140px;"><i class="bi bi-clock fs-5 text-hidden"></i> Năm XB:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">2019</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 140px;"><i class="bi bi-arrows-fullscreen fs-5 text-hidden"></i> Kt bìa:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">16x24 cm</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 140px;"><i class="bi bi-globe-americas fs-5 text-hidden"></i> Quốc gia:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">Đức</div>
+                  </div>
+                  <div class="d-flex p-3 align-items-center">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 140px;"><i class="bi bi-upc-scan fs-5 text-hidden"></i> Mã ISBN:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">978-604-82-3892-6</div>
+                  </div>
+                </div>
+
+                <!-- Cột 2: Thông tin tác phẩm -->
+                <div class="col-md-6">
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 160px;"><i class="bi bi-translate fs-5 text-hidden"></i> Người dịch:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">Phạm Vĩnh Cư</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 160px;"><i class="bi bi-book fs-5 text-hidden"></i> Loại sách:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">Ebook; Sách giấy, Audio Book</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 160px;"><i class="bi bi-file-earmark-text fs-5 text-hidden"></i> Số trang:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">202 trang</div>
+                  </div>
+                  <div class="d-flex border-bottom p-3 align-items-center" style="border-color: #E8E0CE !important;">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 160px;"><i class="bi bi-globe fs-5 text-hidden"></i> Ngôn ngữ:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">Tiếng Việt</div>
+                  </div>
+                  <div class="d-flex p-3 align-items-center">
+                    <div class="text-body-16-m text-dark-text d-flex align-items-center gap-2" style="width: 160px;"><i class="bi bi-upc-scan fs-5 text-hidden"></i> Mã ISBN Điện tử:</div>
+                    <div class="text-body-16-r text-dark-text flex-grow-1">978-604-82-3892-6</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Tabs Giới thiệu / Mục lục -->
+          <div class="card rounded-3 mb-4 shadow-sm detail-tabs-wrapper" style="border-color: #E8E0CE !important;">
+            <div class="card-header bg-transparent border-bottom p-0" style="border-color: #E8E0CE !important;">
+              <ul class="nav nav-tabs border-0 custom-detail-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active text-h5-18-b-upp text-dark-text px-4 py-3 border-0 bg-transparent position-relative" data-bs-toggle="tab" data-bs-target="#tab-intro" type="button" role="tab">GIỚI THIỆU</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-h5-18-b text-hidden px-4 py-3 border-0 bg-transparent position-relative" data-bs-toggle="tab" data-bs-target="#tab-toc" type="button" role="tab">Mục lục</button>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body p-4 pt-4">
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-intro" role="tabpanel">
+                  <h4 class="text-h4-20-b text-dark-text mb-3">Cơ thể siêu rắc rối</h4>
+                  <div class="text-body-16-r text-dark-text mb-4" style="line-height: 1.6;">
+                    <p>Là một cuốn sách hay không chỉ về tình mẫu tử thiêng liêng mà còn bởi những kỹ năng nuôi dạy con khôn khéo, tuyệt vời mà nữ tác giả Dương Văn mang tới cho độc giả.</p>
+                    <p>Một cô thợ may trở thành sinh viên đại học, đi du học ở Anh, là giảng viên của một trường đại học, là thạc sĩ rồi giáo sư, trở thành chủ tịch hội đồng quản trị của một trong những học viện nổi tiếng...</p>
+                    <p>Một cậu bé thông minh, ham đọc sách từ nhỏ, luôn vui vẻ, say mê khám phá, là học sinh giỏi, trở thành sinh viên rồi tiến sĩ của trường Cambridge... Đó chính là quá trình đồng hành cùng con trai của Dương Văn.</p>
+                    <p>Việc kiên trì quan điểm giáo dục tố chất, giáo dục vui vẻ đã giúp người mẹ này bồi dưỡng nên một tiến sĩ Cambridge vui vẻ, lương thiện, toàn diện. Đặc biệt là khi con trai trưởng thành thì người mẹ cũng tỏa sáng.</p>
+                    <p>Mẹ luôn đồng hành cùng con không chỉ là lý luận giáo dục tố chất gia đình của một chuyên gia giáo dục mà còn là sự tổng kết kinh nghiệm dạy con của một người mẹ yêu con một cách khoa học.</p>
+                  </div>
+                  <div class="text-center mt-3 pt-3 border-top" style="border-color: #E8E0CE !important;">
+                    <button class="btn btn-link text-brand text-decoration-none text-body-16-m p-0 d-inline-flex align-items-center gap-2">
+                      <i class="bi bi-chevron-down"></i> Xem đầy đủ
+                    </button>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="tab-toc" role="tabpanel">
+                  <p class="text-body-16-r text-dark-text">Nội dung mục lục...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Bình luận -->
+          <div class="card rounded-3 mb-5 shadow-sm" style="border-color: #E8E0CE !important; background-color: #FAF6F0;">
+            <div class="card-header bg-transparent border-bottom p-4 pb-3" style="border-color: #FFFFFF !important;">
+              <h3 class="text-h4-20-b text-dark-text m-0 text-uppercase">BÌNH LUẬN</h3>
+            </div>
+            <div class="card-body p-4 rounded-bottom" style="border-top: 1px solid #E8E0CE;">
+              <!-- Comment item -->
+              <div class="d-flex mb-4">
+                <div class="flex-shrink-0 me-3">
+                  <div class="rounded-circle d-flex align-items-center justify-content-center text-hidden fw-bold" style="width: 40px; height: 40px; background-color: #EBEBEB;">T</div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="text-body-16-m text-dark-text mb-2">Tiến</div>
+                  <p class="text-body-16-r text-hidden mb-2">Mình không mua được sách Ad ơi?</p>
+                  <div class="d-flex align-items-center gap-3 text-small-14">
+                    <a href="#" class="text-link text-decoration-none fw-medium">Trả lời</a>
+                    <span class="text-hidden">- 23 giờ trước</span>
+                  </div>
+
+                  <!-- Reply item -->
+                  <div class="d-flex mt-3 border border-light" style="background-color: #F9F9F9; padding: 16px; border-radius: 8px;">
+                    <div class="flex-shrink-0 me-3">
+                      <img src="assets/img/benbooks-logo.svg" alt="Admin" class="rounded-circle bg-danger p-1 object-fit-cover" width="32" height="32">
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="text-body-16-m text-dark-text">Thành Luân</span>
+                        <span class="badge text-dark px-2 py-1 rounded" style="background-color: #F8CB4B; font-size: 12px; font-weight: normal;">Quản Trị Viên</span>
+                      </div>
+                      <p class="text-body-16-r text-hidden mb-1">Chào bạn!</p>
+                      <p class="text-body-16-r text-hidden mb-1">Bên mình đã nhắn tin hướng dẫn, bạn vui lòng kiểm tra email nhé!</p>
+                      <p class="text-body-16-r text-hidden mb-2">Xin cảm ơn bạn.</p>
+                      <div class="d-flex align-items-center gap-3 text-small-14 mt-2">
+                        <a href="#" class="text-link text-decoration-none fw-medium">Trả lời</a>
+                        <span class="text-hidden">- 23 giờ trước</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Comment form -->
+              <div class="mt-4 pt-3 border-top" style="border-color: #E8E0CE !important;">
+                <textarea class="form-control mb-4 p-3 border-light rounded-3 shadow-sm text-body-16-r" rows="3" placeholder="Mời Bạn để lại bình luận..." style="resize: none;"></textarea>
+                <div class="text-center">
+                  <button class="btn btn-brand px-5 py-2 text-body-16-m shadow-sm">Gửi bình luận</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Sách cùng chủ đề -->
+          <div class="mb-5 related-books-section">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h3 class="text-h4-20-b text-dark-text text-uppercase m-0">SÁCH CÙNG CHỦ ĐỀ</h3>
+              <div class="scroll-nav">
+                <button type="button" class="btn btn-sm btn-light rounded-circle shadow-sm" onclick="scrollSection('relatedBooksGrid', -1)"><i class="bi bi-chevron-left"></i></button>
+                <button type="button" class="btn btn-sm btn-light rounded-circle shadow-sm" onclick="scrollSection('relatedBooksGrid', 1)"><i class="bi bi-chevron-right"></i></button>
+              </div>
+            </div>
+            <div id="relatedBooksGrid"></div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR RIGHT -->
+        <div class="col-lg-3 col-md-4">
+          <div class="bb-sidebar mb-3" id="sidebarDetail">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
       </div>
+
     </div>
-  </main>
+  </div>
 
-  <!-- GỢI Ý CHO BẠN — full width -->
-  <section class="suggested-section">
+  <!-- GỢI Ý CHO BẠN — full width background -->
+  <section class="suggested-section pt-5 pb-0 m-0" style="background-color: #FAF6F0;">
     <div class="container-fluid bb-container">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <div class="section-title mb-0">GỢI Ý CHO BẠN</div>
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="text-h4-20-b text-dark-text m-0 text-uppercase">GỢI Ý CHO BẠN</h2>
         <div class="scroll-nav">
-          <button type="button" class="scroll-btn" onclick="scrollSection('suggestedBooksGrid',-1)"><i class="bi bi-chevron-left"></i></button>
-          <button type="button" class="scroll-btn" onclick="scrollSection('suggestedBooksGrid',1)"><i class="bi bi-chevron-right"></i></button>
+          <button type="button" class="btn btn-sm btn-light rounded-circle shadow-sm" onclick="scrollSection('suggestedBooksGrid', -1)"><i class="bi bi-chevron-left"></i></button>
+          <button type="button" class="btn btn-sm btn-light rounded-circle shadow-sm" onclick="scrollSection('suggestedBooksGrid', 1)"><i class="bi bi-chevron-right"></i></button>
         </div>
       </div>
       <div id="suggestedBooksGrid"></div>
     </div>
   </section>
 
+  <!-- Ẩn thanh scroll của track ngang -->
+  <style>
+    #suggested-track::-webkit-scrollbar {
+      display: none;
+    }
+    
+    
+    
+  </style>
+
+  <!-- FOOTER -->
   <div id="app-footer"></div>
 
   <!-- Floating buttons -->
   <div class="float-buttons">
-    <a href="#" class="float-btn float-btn-messenger" title="Chat Messenger"><img src="assets/img/Messenger.svg" alt="Messenger"></a>
-    <a href="#" class="float-btn float-btn-zalo" title="Chat Zalo"><img src="assets/img/zalo.svg" alt="Zalo"></a>
-    <button type="button" class="float-btn float-btn-scroll-top" id="scrollTopBtn" title="Lên đầu trang" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="bi bi-chevron-up"></i></button>
+    <a href="#" class="float-btn float-btn-messenger" title="Chat Messenger">
+      <img src="assets/img/Messenger.svg" alt="Messenger">
+    </a>
+    <a href="#" class="float-btn float-btn-zalo" title="Chat Zalo">
+      <img src="assets/img/zalo.svg" alt="Zalo">
+    </a>
+    <button type="button" class="float-btn float-btn-scroll-top" id="scrollTopBtn" title="Lên đầu trang" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <i class="bi bi-chevron-up"></i>
+    </button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

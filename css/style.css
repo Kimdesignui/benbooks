@@ -1075,12 +1075,17 @@ img {
    BOOK DETAIL PAGE
    ===================================================== */
 
+/* Full white background wrapper */
+.book-detail-page-bg {
+  background: var(--c-white);
+}
+
 /* Hero card */
 .book-detail-hero {
   background: var(--c-white);
   border-radius: var(--radius-lg);
   padding: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 .book-detail-hero > .row > [class*="col-"]:last-child {
   padding-left: 32px;
@@ -1651,7 +1656,7 @@ img {
 /* Horizontal scroll book carousel */
 .bb-books-scroll {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: 8px;
@@ -1660,15 +1665,12 @@ img {
 .bb-books-scroll::-webkit-scrollbar { display: none; }
 
 .bb-books-scroll .bb-book-card-col {
-  flex: 0 0 170px;
-  max-width: 170px;
+  /* Default width fallback */
+  flex: 0 0 calc((100% - 72px) / 4);
+  max-width: calc((100% - 72px) / 4);
 }
 
-.scroll-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+
 .scroll-nav .scroll-btn {
   width: 32px;
   height: 32px;
@@ -2105,4 +2107,208 @@ img {
 .modal-activate .btn-activate:hover {
   opacity: 0.9;
   color: #FFFFFF;
+}
+/* ==========================================================================
+   BOOK DETAIL PAGE SPECIFIC STYLES (NEW)
+   ========================================================================== */
+
+.book-detail-wrapper {
+  background-color: transparent;
+  min-height: 100vh;
+}
+
+/* --- Hero Section - Left Column (Images) --- */
+.book-cover-square-box {
+  width: 80%; /* Giảm kích thước xuống 80% chiều rộng của cột */
+  margin: 0 auto; /* Căn giữa khung */
+  aspect-ratio: 1 / 1;
+  background-color: var(--c-white); /* Nền màu trắng */
+  border: none; /* Không viền */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem; /* Giảm padding một chút */
+  position: relative;
+}
+
+.book-cover-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ưu tiên hiển thị đủ 100% không cắt xén */
+  aspect-ratio: 2 / 3; /* Tỉ lệ bìa sách chuẩn 2:3 */
+  box-shadow: var(--shadow-md);
+  border-radius: 4px;
+}
+
+/* Badges on Cover */
+.badge-top-left {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+}
+.badge-top-left .badge {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  color: var(--c-link) !important;
+  border-color: var(--c-link) !important;
+}
+
+.badge-bottom-center {
+  position: absolute;
+  bottom: -15px; /* Tràn xuống dưới một chút */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.tag-hoi-vien-img {
+  height: 40px;
+  width: auto;
+}
+
+/* Thumbnails Slider */
+.thumb-item {
+  width: 70px;
+  min-width: 70px;
+  aspect-ratio: 2 / 3;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+}
+.thumb-item.active {
+  border-color: var(--c-brand);
+}
+.thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumb-item.dark-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+}
+.thumb-item .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+}
+
+.thumb-action-box {
+  width: 70px;
+  min-width: 70px;
+  aspect-ratio: 2 / 3;
+  border-color: var(--c-border) !important;
+  transition: var(--transition-fast);
+}
+.thumb-action-box:hover {
+  background-color: var(--c-bg-paper) !important;
+  border-color: var(--c-brand) !important;
+}
+
+.thumb-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  background-color: #fff;
+}
+
+/* --- Hero Section - Right Column (Info) --- */
+.format-box {
+  width: 80px;
+  height: 80px;
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  background-color: #fff;
+}
+.format-box:hover {
+  border-color: var(--c-brand);
+}
+.format-box.active {
+  border-color: var(--c-brand) !important;
+  background-color: var(--c-brand-light) !important;
+}
+.format-box.active img {
+  filter: none !important;
+}
+
+
+/* =====================================================
+   CAROUSEL INTEGER ITEMS (Responsive)
+   ===================================================== */
+/* Sách cùng chủ đề (trong cột) */
+#relatedBooksGrid .bb-books-scroll .bb-book-card-col {
+  flex: 0 0 calc((100% - 96px) / 5); /* Hiển thị chính xác 5 cuốn */
+  max-width: calc((100% - 96px) / 5);
+}
+
+/* Gợi ý cho bạn (Full width) */
+#suggestedBooksGrid .bb-books-scroll .bb-book-card-col {
+  flex: 0 0 calc((100% - 120px) / 6); /* Hiển thị chính xác 6 cuốn */
+  max-width: calc((100% - 120px) / 6);
+}
+
+/* Responsive Medium/Small cho Sách cùng chủ đề */
+@media (max-width: 1199px) {
+  #relatedBooksGrid .bb-books-scroll .bb-book-card-col {
+    flex: 0 0 calc((100% - 72px) / 4); /* 4 cuốn */
+    max-width: calc((100% - 72px) / 4);
+  }
+}
+@media (max-width: 767px) {
+  #relatedBooksGrid .bb-books-scroll .bb-book-card-col {
+    flex: 0 0 calc((100% - 24px) / 2); /* 2 cuốn */
+    max-width: calc((100% - 24px) / 2);
+  }
+}
+
+/* Responsive Medium/Small cho Gợi ý */
+@media (max-width: 1199px) {
+  #suggestedBooksGrid .bb-books-scroll .bb-book-card-col {
+    flex: 0 0 calc((100% - 96px) / 5); /* 5 cuốn */
+    max-width: calc((100% - 96px) / 5);
+  }
+}
+@media (max-width: 991px) {
+  #suggestedBooksGrid .bb-books-scroll .bb-book-card-col {
+    flex: 0 0 calc((100% - 72px) / 4); /* 4 cuốn */
+    max-width: calc((100% - 72px) / 4);
+  }
+}
+@media (max-width: 767px) {
+  #suggestedBooksGrid .bb-books-scroll .bb-book-card-col {
+    flex: 0 0 calc((100% - 24px) / 2); /* 2 cuốn */
+    max-width: calc((100% - 24px) / 2);
+  }
+}
+
+.scroll-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* Push to the right */
 }
